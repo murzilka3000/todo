@@ -8,7 +8,8 @@ export interface RemoveType {
 
 export interface AddType {
     type: 'ADD-TODOLIST',
-    title: string
+    title: string,
+    todoListId: string
 }
 
 export interface TitleType {
@@ -31,7 +32,7 @@ export const todolistReducer = (state: todoListsType[], action: ActionType): tod
             return state.filter(tl => tl.id !== action.id)
         }
         case 'ADD-TODOLIST': {
-            return [...state, { id: v1(), filter: 'all', title: action.title }]
+            return [...state, { id: action.todoListId, filter: 'all', title: action.title }]
         }
         case 'CHANGE-TODOLIST-TITLE': {
                 const todoList = state.find(tl => tl.id === action.id)
@@ -58,7 +59,7 @@ export const removeTodoListAC = (todolistId: string): RemoveType => {
 }
 
 export const addTodoListAC = (newTodolistTitle: string): AddType => {
-    return { type: 'ADD-TODOLIST', title: newTodolistTitle }
+    return { type: 'ADD-TODOLIST', title: newTodolistTitle, todoListId: v1() }
 }
 
 export const titleTodoListAC = (newTodolistTitle: string, todolistId: string): TitleType => {
