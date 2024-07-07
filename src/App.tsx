@@ -12,7 +12,7 @@ export type todoListsType = {
   filter: filterType
 }
 
-type tasksAllType = {
+export type tasksAllType = {
   [key: string]: Array<arrType>
 }
 
