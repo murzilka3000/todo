@@ -7,6 +7,7 @@ import {
     titleTodoListAC, 
     todolistReducer
  } from "./state/todolist-reducer"
+import { taskReducer } from "./state/task-reducer"
 
 test('correct todolist should removed', () => { 
     let todoListId1 = v1()
