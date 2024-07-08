@@ -10,9 +10,8 @@ interface removeTaskType {
 
 interface addTaskType {
     type: 'ADD-TASK'
-    taskId: string,
     todolistId: string,
-    text: string
+    text: string,
 }
 
 interface isDoneTaskType {
@@ -43,7 +42,7 @@ export const taskReducer = (state: tasksAllType, action: taskActionType): tasksA
         case 'ADD-TASK': {
             let stateCopy = {...state}
             let tasks = state[action.todolistId]
-            let task = {id: action.taskId, text: action.text, isDone: false}
+            let task = {id: v1(), text: action.text, isDone: false}
             let newTasks = [task, ...tasks]
             stateCopy[action.todolistId] = newTasks
             return stateCopy
@@ -84,12 +83,12 @@ export const removeTaskAC = (taskId: string, todolistId: string): removeTaskType
     return { type: 'REMOVE-TASK', taskId,  todolistId }
 }
 
-export const addTaskAC = (taskId: string, todolistId: string, text: string): addTaskType => {
-    return { type: 'ADD-TASK', taskId,  todolistId, text }
+export const addTaskAC = ( todolistId: string, text: string): addTaskType => {
+    return { type: 'ADD-TASK', text, todolistId  }
 }
 
 export const isDoneTaskAC = (taskId: string, todolistId: string, isDone: boolean): isDoneTaskType => {
-    return { type: 'IS-DONE-TASK', taskId,  todolistId, isDone: false }
+    return { type: 'IS-DONE-TASK', taskId,  todolistId, isDone }
 }
 
 export const textChangeTaskAC = (taskId: string, todolistId: string, text: string): textChangeTaskType => {

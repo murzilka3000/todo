@@ -49,7 +49,7 @@ export const todolistReducer = (state: todoListsType[], action: ActionType): tod
                 return [...state]
         }
         default: { 
-            return state
+            return [...state]
         }
     }
 }

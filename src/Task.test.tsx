@@ -49,7 +49,7 @@ test('add task', () => {
         ],
     }
 
-    const action = addTaskAC('5', 'todoListId2', 'murzilka300')
+    const action = addTaskAC('todoListId2', 'murzilka300')
 
     const endState = taskReducer(startState, action)
 
