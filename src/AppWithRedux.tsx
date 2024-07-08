@@ -30,7 +30,7 @@ export type tasksAllType = {
   [key: string]: Array<arrType>
 }
 
-const AppWithReducers = () => {
+const AppWithRedux = () => {
 
   let todoListId1 = v1()
   let todoListId2 = v1()
@@ -147,4 +147,4 @@ const AppWithReducers = () => {
   )
 }
 
-export default AppWithReducers
+export default AppWithRedux

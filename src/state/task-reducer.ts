@@ -1,6 +1,6 @@
 import { v1 } from 'uuid';
 import { tasksAllType } from '../App';
-import { AddType, RemoveType } from './todolist-reducer';
+import { AddType, RemoveType, todoListId1, todoListId2 } from './todolist-reducer';
 
 interface removeTaskType {
     type: 'REMOVE-TASK'
@@ -28,9 +28,32 @@ interface textChangeTaskType {
     text: string
 }
 
-type taskActionType = removeTaskType | addTaskType | isDoneTaskType | textChangeTaskType | AddType | RemoveType
+type taskActionType = 
+removeTaskType | 
+addTaskType | 
+isDoneTaskType | 
+textChangeTaskType | 
+AddType | 
+RemoveType
 
-export const taskReducer = (state: tasksAllType, action: taskActionType): tasksAllType => {
+const initialState: tasksAllType = {
+    [todoListId1]: 
+    [
+      {id: v1(), text: 'css', isDone: true},
+      {id: v1(), text: 'js', isDone: false},
+      {id: v1(), text: 'html', isDone: true},
+      {id: v1(), text: 'react', isDone: false},
+    ],
+    [todoListId2]: 
+    [
+      {id: v1(), text: 'py', isDone: true},
+      {id: v1(), text: 'c++', isDone: false},
+      {id: v1(), text: 'buy', isDone: false},
+      {id: v1(), text: 'c++', isDone: false},
+    ],
+  }
+
+export const taskReducer = (state: tasksAllType = initialState, action: taskActionType): tasksAllType => {
     switch(action.type) {
         case 'REMOVE-TASK': {
             let stateCopy = {...state}
@@ -74,6 +97,9 @@ export const taskReducer = (state: tasksAllType, action: taskActionType): tasksA
             let stateCopy = {...state}
             delete stateCopy[action.id]
             return stateCopy
+        }
+        default: { 
+            return state
         }
 
     }
