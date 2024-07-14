@@ -1,3 +1,4 @@
+import { tasksAllType } from './AppWithRedux'
 import { 
     addTaskAC, 
     isDoneTaskAC, 
@@ -5,7 +6,6 @@ import {
     taskReducer, 
     textChangeTaskAC
 } from './state/task-reducer'
-import { tasksAllType } from "./App"
 import { addTodoListAC, removeTodoListAC } from './state/todolist-reducer'
 
 test('add task', () => { 

@@ -7,12 +7,7 @@ import {
   removeTodoListAC, 
   titleTodoListAC,  
 } from "./state/todolist-reducer"
-import {
-  addTaskAC, 
-  isDoneTaskAC, 
-  removeTaskAC,  
-  textChangeTaskAC 
-} from "./state/task-reducer"
+import {addTaskAC} from "./state/task-reducer"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { ReducersType } from "./state/store"
@@ -37,43 +32,19 @@ const AppWithRedux = () => {
   const tasks = useSelector<ReducersType, tasksAllType>(state => state.tasks)
 
   const filterTasks = (value: filterType, todoListId: string) => {
-    const action = filterTodoListAC(value, todoListId )
-    dispatch(action)
-  }
-
-  const removeTasks = (id: string, todoListId: string) => {
-    const action = removeTaskAC(id, todoListId )
-    dispatch(action)
+    dispatch(filterTodoListAC(value, todoListId ))
   }
 
   const removeTodoList = (todoListId: string) => {
-    const action = removeTodoListAC( todoListId )
-    dispatch(action)
+    dispatch(removeTodoListAC( todoListId ))
   }
 
   const changeTaskTitle = (title: string, todoListId: string) => {
-    const action = titleTodoListAC( title, todoListId )
-    dispatch(action)
+    dispatch(titleTodoListAC( title, todoListId ))
   }
 
   const addToDoList = (title: string) => {
-    const action = addTodoListAC(title)
-    dispatch(action)
-  }
-
-  const addTask = (text: string, todoListId: string) => {
-    const action = addTaskAC(todoListId, text )
-    dispatch(action)
-  }
-
-  const changeTaskText = (id: string, text: string, todoListId: string) => {
-    const action = textChangeTaskAC( id, text, todoListId )
-    dispatch(action)
-  }
-
-  const isDoneController = (id: string, isDone: boolean, todoListId: string  ) => {
-    const action = isDoneTaskAC(id, todoListId, isDone)
-    dispatch(action)
+    dispatch(addTodoListAC(title))
   }
 
   return (
@@ -88,29 +59,14 @@ const AppWithRedux = () => {
       {
         todoLists.map(tl => {
 
-          let filterItem = tasks[tl.id]
-
-          if(tl.filter === 'complete') {
-            filterItem = filterItem.filter(t => t.isDone === true)
-          }
-
-          if(tl.filter === 'active') {
-            filterItem = filterItem.filter(t => t.isDone === false)
-          }
-
           return(
             <Todolist
             key={tl.id}
             title={tl.title}
-            tasks={filterItem}
-            removeTasks={removeTasks}
-            addTask={addTask}
             filterTasks={filterTasks}
             filter={tl.filter}
-            isDoneController={isDoneController}
             id={tl.id}
             removeTodoList={removeTodoList}
-            changeTaskText={changeTaskText}
             changeTaskTitle={changeTaskTitle}
             />
           )

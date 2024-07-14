@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import { filterType } from "../AppWithRedux";
+import { addTaskAC, isDoneTaskAC, removeTaskAC, textChangeTaskAC } from "../state/task-reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { ReducersType } from "../state/store";
 
  export type arrType = {
     id: string,
@@ -17,13 +20,8 @@ import { filterType } from "../AppWithRedux";
 
 export type taskType = {
     title: string,
-    tasks: Array<arrType>,
-    removeTasks: (id: string, todoListId: string) => void,
-    addTask: ( text: string, todoListId: string) => void,
     filterTasks: (value: filterType, todoListId: string) => void,
     filter: filterType,
-    isDoneController: (id: string, isDone: boolean, todoListId: string) => void,
-    changeTaskText: (id: string, text: string, todoListId: string) => void
     id: string,
     removeTodoList: (todoListId: string) => void,
     changeTaskTitle: (title: string, todoListId: string) => void
@@ -49,6 +47,23 @@ const Todolist = (props: taskType) => {
 
     const removeTodoListHandler = () => {
         props.removeTodoList(props.id)
+    }
+
+    const dispatch = useDispatch()
+    const tasks = useSelector<ReducersType, arrType[]>(state => state.tasks[props.id])
+
+    const addTask = (text: string, todoListId: string) => {
+        dispatch(addTaskAC(props.id, text))
+    }
+
+    let filterItem = tasks
+
+    if(props.filter === 'complete') {
+        filterItem = filterItem.filter(t => t.isDone === true)
+    }
+
+    if(props.filter === 'active') {
+        filterItem = filterItem.filter(t => t.isDone === false)
     }
 
     return (
@@ -80,23 +95,23 @@ const Todolist = (props: taskType) => {
                     </Button>
                 </div>
                 <Input
-                addTask={props.addTask}
+                addTask={addTask}
                 id={props.id}
                 />
                 <ul>
                     {
-                        props.tasks.map(t => {
+                        filterItem.map(t => {
 
                             const removeHandler = () => {
-                                props.removeTasks(t.id, props.id)
+                                dispatch(removeTaskAC(t.id, props.id ))
                             }
 
                             const isDoneControllerHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                props.isDoneController(t.id, e.currentTarget.checked, props.id)
+                                dispatch(isDoneTaskAC(t.id, props.id,  e.currentTarget.checked ))
                             }
 
                             const taskController = (newValue: string) => {
-                                props.changeTaskText(t.id, newValue, props.id)
+                                dispatch(textChangeTaskAC( t.id, newValue, props.id ))
                             }
 
                             return(
