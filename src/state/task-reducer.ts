@@ -1,6 +1,6 @@
 import { v1 } from 'uuid';
-import { tasksAllType } from '../App';
-import { AddType, RemoveType, todoListId1, todoListId2 } from './todolist-reducer';
+import { tasksAllType } from '../AppWithRedux';
+import { AddType, RemoveType } from './todolist-reducer';
 
 interface removeTaskType {
     type: 'REMOVE-TASK'
@@ -36,22 +36,7 @@ textChangeTaskType |
 AddType | 
 RemoveType
 
-const initialState: tasksAllType = {
-    [todoListId1]: 
-    [
-      {id: v1(), text: 'css', isDone: true},
-      {id: v1(), text: 'js', isDone: false},
-      {id: v1(), text: 'html', isDone: true},
-      {id: v1(), text: 'react', isDone: false},
-    ],
-    [todoListId2]: 
-    [
-      {id: v1(), text: 'py', isDone: true},
-      {id: v1(), text: 'c++', isDone: false},
-      {id: v1(), text: 'buy', isDone: false},
-      {id: v1(), text: 'c++', isDone: false},
-    ],
-  }
+const initialState: tasksAllType = {}
 
 export const taskReducer = (state: tasksAllType = initialState, action: taskActionType): tasksAllType => {
     switch(action.type) {
@@ -117,8 +102,8 @@ export const isDoneTaskAC = (taskId: string, todolistId: string, isDone: boolean
     return { type: 'IS-DONE-TASK', taskId,  todolistId, isDone }
 }
 
-export const textChangeTaskAC = (taskId: string, todolistId: string, text: string): textChangeTaskType => {
-    return { type: 'TEXT-CHANGE-TASK', taskId,  todolistId, text }
+export const textChangeTaskAC = (taskId: string, text: string, todolistId: string ): textChangeTaskType => {
+    return { type: 'TEXT-CHANGE-TASK', taskId, text, todolistId }
 }
 
 export const addTodoListAC = (newTodolistTitle: string): AddType => {

@@ -1,5 +1,5 @@
 import { v1 } from "uuid"
-import { filterType, todoListsType } from "../App"
+import { filterType, todoListsType } from "../AppWithRedux"
 
 export interface RemoveType {
     type: 'REMOVE-TODOLIST',
@@ -26,14 +26,7 @@ export interface FilterType {
 
 export type ActionType = RemoveType | AddType | TitleType | FilterType
 
-export let todoListId1 = v1()
-export let todoListId2 = v1()
-
-const initialState: todoListsType[] = 
-    [
-    {id: todoListId1, title: 'to do 1', filter: 'all'},
-    {id: todoListId2, title: 'to do 2', filter: 'all'},
-    ]
+const initialState: todoListsType[] = []
 
 export const todolistReducer = (state: todoListsType[] = initialState, action: ActionType): todoListsType[] => {
     switch (action.type) {

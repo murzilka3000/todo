@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     tasks: taskReducer
 });
 
-type ReducersType = ReturnType<typeof rootReducer>;
+export type ReducersType = ReturnType<typeof rootReducer>;
 
 
 export const store = configureStore({

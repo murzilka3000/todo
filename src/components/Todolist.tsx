@@ -1,5 +1,4 @@
 import { ChangeEvent } from "react"
-import { filterType } from "../App"
 import  '../App.css'
 import Input from "./Input"
 import Span from "./Span"
@@ -8,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import { filterType } from "../AppWithRedux";
 
  export type arrType = {
     id: string,
