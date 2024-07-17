@@ -7,10 +7,10 @@ import {
   removeTodoListAC, 
   titleTodoListAC,  
 } from "./state/todolist-reducer"
-import {addTaskAC} from "./state/task-reducer"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import { ReducersType } from "./state/store"
+import { useCallback } from "react"
 
 export type filterType = 'all' | 'complete' | 'active'
 
@@ -26,26 +26,28 @@ export type tasksAllType = {
 
 const AppWithRedux = () => {
 
+  console.log('app')
+
   const dispatch = useDispatch()
 
   const todoLists = useSelector<ReducersType, todoListsType[]>(state => state.todoLists)
-  const tasks = useSelector<ReducersType, tasksAllType>(state => state.tasks)
+  useSelector<ReducersType, tasksAllType>(state => state.tasks)
 
   const filterTasks = (value: filterType, todoListId: string) => {
     dispatch(filterTodoListAC(value, todoListId ))
   }
 
-  const removeTodoList = (todoListId: string) => {
+  const removeTodoList = useCallback( (todoListId: string) => {
     dispatch(removeTodoListAC( todoListId ))
-  }
+  }, [] )
 
-  const changeTaskTitle = (title: string, todoListId: string) => {
+  const changeTaskTitle = useCallback( (title: string, todoListId: string) => {
     dispatch(titleTodoListAC( title, todoListId ))
-  }
+  }, [] )
 
-  const addToDoList = (title: string) => {
+  const addToDoList = useCallback( (title: string) => {
     dispatch(addTodoListAC(title))
-  }
+  }, [] )
 
   return (
     <div>

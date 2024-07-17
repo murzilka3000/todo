@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, KeyboardEvent } from "react"
 import TextField from '@mui/material/TextField';
+import React from "react";
 
 type spanType = {
     text: string,
@@ -60,5 +61,5 @@ const Span = (props: spanType) => {
     )
 }
 
-export default Span
+export default React.memo(Span) 
 

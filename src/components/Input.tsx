@@ -3,17 +3,22 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import '../App.css'
+import React from "react";
 
 type taskType = {
     addTask: (text: string, todoListId: string) => void,
     id: string,
 }
 
-const Input = (props: taskType) => {
+const Input = React.memo( (props: taskType) => {
+
+    console.log('input')
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if(error !== null) {
+            setError(null)
+        }
         setCount(e.currentTarget.value)
-        setError('')
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -60,6 +65,6 @@ const Input = (props: taskType) => {
             {error ? <p className="error">{error}</p> : ''}
         </>
     )
-}
+})
 
 export default Input

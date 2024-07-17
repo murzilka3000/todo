@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react"
+import { ChangeEvent, useCallback } from "react"
 import  '../App.css'
 import Input from "./Input"
 import Span from "./Span"
@@ -11,6 +11,7 @@ import { filterType } from "../AppWithRedux";
 import { addTaskAC, isDoneTaskAC, removeTaskAC, textChangeTaskAC } from "../state/task-reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { ReducersType } from "../state/store";
+import React from "react";
 
  export type arrType = {
     id: string,
@@ -27,7 +28,9 @@ export type taskType = {
     changeTaskTitle: (title: string, todoListId: string) => void
 }
 
-const Todolist = (props: taskType) => {
+const Todolist = React.memo( (props: taskType) => {
+
+    console.log('todolist')
 
     const filterAll = () => {
         props.filterTasks('all', props.id)
@@ -52,9 +55,9 @@ const Todolist = (props: taskType) => {
     const dispatch = useDispatch()
     const tasks = useSelector<ReducersType, arrType[]>(state => state.tasks[props.id])
 
-    const addTask = (text: string, todoListId: string) => {
+    const addTask = useCallback( (text: string, todoListId: string) => {
         dispatch(addTaskAC(props.id, text))
-    }
+    }, [] )
 
     let filterItem = tasks
 
@@ -167,6 +170,6 @@ const Todolist = (props: taskType) => {
             </div>
         </Box>
     )
-}
+})
 
 export default Todolist
